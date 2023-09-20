@@ -15,7 +15,7 @@
         <span class="link__text">Pulpit</span>
       </router-link>
 
-      <router-link to="/Wiadomości" class="link">
+      <router-link to="/Wiadomosci" class="link">
         <IconMessage class="link__icon" />
         <span class="link__text">Wiadomości</span>
       </router-link>
@@ -67,7 +67,7 @@
   nav {
     position: relative;
     height: 100vh;
-    width: 270px;
+    width: 290px;
     display: flex;
     flex-direction: column;
     padding: 25px 0;
@@ -166,6 +166,7 @@
     width: 30px;
     height: max-content;
     fill: var(--color-main);
+    transition: transform 0.2s ease;
   }
 
   .link:hover {
