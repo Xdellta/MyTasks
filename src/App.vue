@@ -13,6 +13,9 @@
 <style lang="scss" scoped>
   main {
     height: 100vh;
-    width: calc(100vw - 270px);
+    width: 100%;
+    background: var(--color-background2);
+    border-top-left-radius: 28px;
+    border-bottom-left-radius: 28px;
   }
 </style>
