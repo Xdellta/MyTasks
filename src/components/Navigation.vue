@@ -65,6 +65,7 @@
 
 <style lang="scss" scoped>
   nav {
+    position: relative;
     height: 100vh;
     width: 270px;
     display: flex;
@@ -74,7 +75,7 @@
   }
 
   .active {
-    width: 80px;
+    width: 84px;
     gap: 3.8vh;
   }
 
@@ -149,6 +150,12 @@
     text-decoration: none;
     font-size: 100%;
     color: var(--color-contrast2);
+  }
+
+  .active .link {
+    width: 100%;
+    padding: 0;
+    justify-content: center;
   }
 
   .active .link__text {
