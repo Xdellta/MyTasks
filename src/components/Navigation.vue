@@ -88,7 +88,7 @@
   }
 
   .router-link-active {
-    background: var(--color-contrast);
+    background: #23314B;
   }
   
   .router-link-active .link__icon {

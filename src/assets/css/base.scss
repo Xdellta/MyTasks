@@ -1,11 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap');
 
-:root {
-  --color-background1: #F2F3F8;
-  --color-background2: #FFFFFF;
-  --color-main: #615BE3;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background1: #232428;
+    --color-background2: #1E1F25;
+    --color-main: #615BE3;
+  
+    --color-contrast: #FFFFFF;
+  }
+}
 
-  --color-contrast: #23314B;
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-background1: #F2F3F8;
+    --color-background2: #FFFFFF;
+    --color-main: #615BE3;
+  
+    --color-contrast: #23314B;
+  }
 }
 
 *,

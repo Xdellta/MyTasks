@@ -97,7 +97,7 @@
     right: 27px;
     border-radius: 50%;
     border: 3.5px solid red;
-    background-color: var(--color-background1);
+    background-color: #F2F3F8;
     transition: opacity 0.2s ease;
   }
 
