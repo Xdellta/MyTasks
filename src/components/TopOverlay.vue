@@ -1,8 +1,9 @@
 <template>
-  <div id="TopOverlay">
-    <h1 class="welcome">
-      Witaj ponownie Patryk!
-    </h1>
+  <header id="TopOverlay">
+    <div class="headerText">
+      <h1 class="headerText__logo">MyTasks</h1>
+      <p class="headerText__descript">Zaplanuj swoje zadania</p>
+    </div>
 
     <div class="personalData">
       <div class="personalData__notify">
@@ -10,10 +11,10 @@
         <div class="personalData__notify__dot"></div>
       </div>
 
-      <span class="personalData__name">Patryk</span>
       <img src="../../public/portret.png" alt="Patryk" class="personalData__avatar">
+      <span class="personalData__name">Patryk</span>
     </div>
-  </div>
+  </header>
 </template>
 
 <script setup lang="ts">
@@ -22,24 +23,30 @@
 
 <style lang="scss" scoped>
   #TopOverlay {
-    width: 96%;
+    width: 100%;
     height: 75px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 2%;
+    padding: 0 2%;
+    background: var(--color-background2);
   }
 
-  /* Section: welcome */
-  .welcome {
-    font-size: 105%;
-    background-color: var(--color-background1);
-    color: var(--color-contrast2);
-    border-radius: 12px;
-    padding: 10px 22px;
-    -webkit-box-shadow: 0px 0px 4px 0px var(--color-contrast1);
-    -moz-box-shadow: 0px 0px 4px 0px var(--color-contrast1);
-    box-shadow: 0px 0px 4px 0px var(--color-contrast1);
+  /* Section: header text */
+  .headerText {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .headerText__logo {
+    font-size: 140%;
+    font-weight: bold;
+    color: var(--color-main);
+  }
+
+  .headerText__descript {
+    font-size: 77%;
+    color: var(--color-contrast);
   }
 
   /* Section: personal data */
@@ -48,16 +55,20 @@
     align-items: center;
     gap: 15px;
   }
+
+  /* notify */
   .personalData__notify {
     position: relative;
     cursor: pointer;
+    border-right: 2px solid var(--color-background1);
+    padding-right: 30px;
+    margin-right: 10px;
   }
 
   .personalData__notify__bell {
     height: 36px;
     width: max-content;
-    margin-right: 10px;
-    fill: var(--color-background1);
+    fill: var(--color-main);
     transition: transform 0.2s ease;
   }
 
@@ -82,11 +93,11 @@
     position: absolute;
     width: 13px;
     height: 13px;
-    bottom: 8px;
-    right: 8px;
+    bottom: 5px;
+    right: 27px;
     border-radius: 50%;
     border: 3.5px solid red;
-    background-color: var(--color-background2);
+    background-color: var(--color-background1);
     transition: opacity 0.2s ease;
   }
 
@@ -94,20 +105,22 @@
     opacity: 0;
   }
 
+  /* avatar */
   .personalData__avatar {
-    height: 48px;
-    width: 48px;
+    height: 42px;
+    width: 42px;
     border-radius: 50%;
-    background-color: var(--color-background1);
+    background-color: var(--color-background2);
     background-size: cover;
     background-position: center;
-    -webkit-box-shadow: 0px 0px 4px 0px var(--color-contrast1);
-    -moz-box-shadow: 0px 0px 4px 0px var(--color-contrast1);
-    box-shadow: 0px 0px 4px 0px var(--color-contrast1);
+    -webkit-box-shadow: 0px 0px 3px 0px var(--color-contrast);
+    -moz-box-shadow: 0px 0px 3px 0px var(--color-contrast);
+    box-shadow: 0px 0px 3px 0px var(--color-contrast);
   }
 
+  /* name */
   .personalData__name {
     font-size: 108%;
-    color: var(--color-contrast1);
+    color: var(--color-contrast);
   }
 </style>

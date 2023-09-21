@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo+2&display=swap");
 :root {
-  --color-background1: #57419D;
-  --color-background2: #FFFFFF;
-  --color-main: #FFCB83;
-  --color-contrast1: #000000;
-  --color-contrast2: #FFFFFF;
+  --color-background1: #1E1F25;
+  --color-background2: #15161A;
+  --color-main: #895FE5;
+  --color-contrast: #E7EAF9;
+  --color-margin: #292C32;
 }
 
 *,
@@ -36,7 +36,7 @@
 body {
   width: 100vw;
   height: 100vh;
-  color: var(--color-contrast1);
+  color: var(--color-contrast);
   background: var(--color-background1);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

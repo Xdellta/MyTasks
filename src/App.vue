@@ -18,11 +18,5 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    background: var(--color-background2);
-    border-top-left-radius: 28px;
-    border-bottom-left-radius: 28px;
-    -webkit-box-shadow: 0px 0px 15px 0px var(--color-contrast1);
-    -moz-box-shadow: 0px 0px 15px 0px var(--color-contrast1);
-    box-shadow: 0px 0px 15px 0px var(--color-contrast1);
   }
 </style>
