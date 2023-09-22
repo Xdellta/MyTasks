@@ -11,7 +11,7 @@
         <div class="personalData__notify__dot"></div>
       </div>
 
-      <img src="../../public/portret.png" alt="Patryk" class="personalData__avatar">
+      <img src="/portret.png" alt="Patryk" class="personalData__avatar">
       <span class="personalData__name">Patryk</span>
     </div>
   </header>
