@@ -63,6 +63,7 @@
     .container {
       width: 100%;
       min-width: auto;
+      min-height: 620px;
     }
   }
 
