@@ -1,12 +1,12 @@
 <template>
   <main>
-    <StartAside />
+    <StartBanner />
     <LoginPanel />
   </main>
 </template>
 
 <script setup lang="ts">
-  import StartAside from '@/components/StartAside.vue'
+  import StartBanner from '@/components/StartBanner.vue'
   import LoginPanel from '@/components/LoginPanel.vue'
 </script>
 

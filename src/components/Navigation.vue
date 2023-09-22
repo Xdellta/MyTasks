@@ -3,7 +3,7 @@
     <Logo class="logo" />
 
     <div class="navigation">
-      <router-link to="/" class="link">
+      <router-link to="/Pulpit" class="link">
         <IconHome class="link__icon" />
       </router-link>
 
