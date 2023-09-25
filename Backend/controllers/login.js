@@ -44,7 +44,27 @@ exports.login = async (req, res) => {
             // Wygeneruj token JWT
             const token = jwt.sign({ userId: user.user_id, userRole }, secretKey, { expiresIn: '1h' });
 
-            res.status(200).json({ token, userRole });
+            // Ustaw datę wygaśnięcia na 1 godzinę od teraz
+            const expirationTime = new Date();
+            expirationTime.setHours(expirationTime.getHours() + 1);
+
+            // Dodaj akcję "login" do tabeli "user_actions"
+            db.query('INSERT INTO user_actions (user_id, action_type) VALUES (?, ?)', [user.user_id, 'login'], (addActionError) => {
+              if (addActionError) {
+                console.error(addActionError);
+                res.status(500).json({ message: 'Błąd serwera' });
+              } else {
+                // Dodaj sesję użytkownika do tabeli "user_sessions" z wyznaczoną datą wygaśnięcia
+                db.query('INSERT INTO user_sessions (user_id, session_token, expiration_time) VALUES (?, ?, ?)', [user.user_id, token, expirationTime], (addSessionError) => {
+                  if (addSessionError) {
+                    console.error(addSessionError);
+                    res.status(500).json({ message: 'Błąd serwera' });
+                  } else {
+                    res.status(200).json({ token, userRole });
+                  }
+                });
+              }
+            });
           }
         });
       } else {
