@@ -9,7 +9,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'login',
-      component: LoginView
+      component: LoginView,
+      meta: { requiresAuth: false }
     },
     {
       path: '/Pulpit',
@@ -40,7 +41,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
-  const userRole = 'getUserRoleFromToken()';
+  const userRole = localStorage.getItem('userRole')
 
   if (to.meta.requiresAuth && !token) {
     next('/');

@@ -18,7 +18,7 @@ function authenticateToken(requiredRoles) {
 
       // Sprawdź, czy rola użytkownika jest wymagana
       if (requiredRoles && requiredRoles.length > 0) {
-        const userRole = req.user.role;
+        const userRole = req.user.userRole;
 
         // Jeśli użytkownik nie ma wymaganej roli, odrzuć dostęp
         if (!requiredRoles.includes(userRole)) {

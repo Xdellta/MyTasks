@@ -39,12 +39,12 @@ exports.login = async (req, res) => {
           } else if (roleResults.length === 0) {
             res.status(401).json({ message: 'Nieprawidłowe dane logowania' });
           } else {
-            const role = roleResults[0].role_name;
+            const userRole = roleResults[0].role_name;
 
             // Wygeneruj token JWT
-            const token = jwt.sign({ userId: user.user_id, role }, secretKey, { expiresIn: '1h' });
+            const token = jwt.sign({ userId: user.user_id, userRole }, secretKey, { expiresIn: '1h' });
 
-            res.status(200).json({ token });
+            res.status(200).json({ token, userRole });
           }
         });
       } else {

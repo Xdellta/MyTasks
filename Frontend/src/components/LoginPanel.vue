@@ -77,7 +77,7 @@
   const login = async () => {
     try {
       const response = await axios.post('/auth/login', formData);
-      const { token } = response.data;
+      const { token, userRole } = response.data;
 
       if (rememberMe.value) {
         localStorage.setItem('rememberedUsername', formData.username);
@@ -88,6 +88,7 @@
       }
 
       localStorage.setItem('token', token);
+      localStorage.setItem('userRole', userRole);
       axios.defaults.headers.common['Authorization'] = `${token}`;
 
       router.push('/Pulpit');
