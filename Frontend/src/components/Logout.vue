@@ -22,8 +22,6 @@
         localStorage.removeItem('token');
         delete axios.defaults.headers.common['Authorization'];
         router.push('/');
-      } else {
-        console.error('Błąd podczas wylogowywania:', response.data.message);
       }
     } catch (error) {
       console.error('Błąd podczas wylogowywania:', error);
