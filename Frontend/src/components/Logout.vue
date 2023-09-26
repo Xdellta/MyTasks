@@ -16,7 +16,7 @@
         axios.defaults.headers.common['Authorization'] = `${token}`;
       }
 
-      const response = await axios.post('/auth/logout');
+      const response = await axios.post('/logout');
 
       if (response.status === 200) {
         localStorage.removeItem('token');

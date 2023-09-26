@@ -76,7 +76,7 @@
   // System logowania
   const login = async () => {
     try {
-      const response = await axios.post('/auth/login', formData);
+      const response = await axios.post('/login', formData);
       const { token, userRole } = response.data;
 
       if (rememberMe.value) {

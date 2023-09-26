@@ -3,19 +3,16 @@ const { secretKey } = require('../config/jwt');
 const db = require('../config/database');
 
 function authenticateToken(requiredRoles) {
-  return function (req, res, next) {
-    const token = req.header('Authorization');
+  return async (req, res, next) => {
+    try {
+      const token = req.header('Authorization');
 
-    if (!token) {
-      return res.status(401).json({ message: 'Brak tokena JWT. Brak autoryzacji.' });
-    }
-
-    // Sprawdź, czy token istnieje w bazie danych
-    db.query('SELECT * FROM user_sessions WHERE session_token = ?', [token], (sessionError, sessionResults) => {
-      if (sessionError) {
-        console.error(sessionError);
-        return res.status(500).json({ message: 'Błąd serwera' });
+      if (!token) {
+        return res.status(401).json({ message: 'Brak tokena JWT. Brak autoryzacji.' });
       }
+
+      // Sprawdź, czy token istnieje w bazie danych
+      const [sessionResults] = await db.query('SELECT * FROM user_sessions WHERE session_token = ?', [token]);
 
       if (sessionResults.length === 0) {
         return res.status(403).json({ message: 'Nieprawidłowy token JWT. Brak autoryzacji.' });
@@ -26,12 +23,7 @@ function authenticateToken(requiredRoles) {
 
       // Weryfikuj token przy użyciu odpowiednich informacji
       jwt.verify(token, secretKey, (err, decodedToken) => {
-        if (err) {
-          return res.status(403).json({ message: 'Nieprawidłowy token JWT. Brak autoryzacji.' });
-        }
-
-        // Upewnij się, że userId pasuje do zawartości tokena
-        if (decodedToken.userId !== userId) {
+        if (err || decodedToken.userId !== userId) {
           return res.status(403).json({ message: 'Nieprawidłowy token JWT. Brak autoryzacji.' });
         }
 
@@ -47,9 +39,13 @@ function authenticateToken(requiredRoles) {
           }
         }
 
+        // Wywołaj funkcję next tylko jeśli nie wystąpiły błędy
         next();
       });
-    });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Błąd serwera' });
+    }
   };
 }
 
