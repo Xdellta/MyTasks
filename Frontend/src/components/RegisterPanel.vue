@@ -1,10 +1,16 @@
 <template>
   <div class="container">
-    <div class="loginPanel">
+    <div class="registerPanel">
       <h1 class="title">MyTasks</h1>
-      <p class="descript">Zaloguj się aby uzyskać dostęp do naszych zasobów.</p>
+      <p class="descript">Zarejestruj się za darmo i korzystaj z możliwości MyTasks.</p>
 
-      <form @submit.prevent="login" autocomplete="off">
+      <form @submit.prevent="register" autocomplete="off">
+        <div class="inputField">
+          <input type="text" class="inputField__input" v-model="formData.username" placeholder="" minlength="3" maxlength="24" required>
+          <label class="inputField__label">Nazwa użytkownika</label>
+          <IconUser class="inputField__icon" />
+        </div>
+
         <div class="inputField">
           <input type="email" class="inputField__input" v-model="formData.email" placeholder="" required>
           <label class="inputField__label">E-mail</label>
@@ -17,75 +23,50 @@
           <IconLock class="inputField__icon" />
         </div>
 
-        <div class="otherOptions">
-          <label class="rememberMe">
-            <input type="checkbox" v-model="rememberMe">
-            Zapamiętaj mnie
-          </label>
-
-          <RouterLink to="/Odzyskiwanie" class="forgetPass">Zapomniałem hasła</RouterLink>
+        <div class="inputField">
+          <input type="password" class="inputField__input" v-model="formData.repeatPassword" placeholder="" minlength="6" required>
+          <label class="inputField__label">Powtórz hasło</label>
+          <IconLock class="inputField__icon" />
         </div>
 
-        <span class="loginError" v-if="loginError">Nieprawidłowe dane logowania</span>
+        <span class="registerError" v-if="registerError">Błąd przy rejestracji</span>
 
-        <button class="btn-login">Zaloguj</button>
+        <button class="btn-register">Zarejestruj</button>
       </form>
-
-      <button class="btn-loginGoogle">
-        <IconGoogle class="IconGoogle" /> Zaloguj przez Google
-      </button>
     </div>
 
     <footer>
-      Nie masz jeszcze konta?
-      <RouterLink to="/Rejestracja" class="register-link">Zarejestruj się</RouterLink>
+      Masz już swoje konto?
+      <RouterLink to="/" class="register-link">Zaloguj się</RouterLink>
     </footer>
   </div>
 </template>
 
 <script setup lang="ts">
   import { ref } from 'vue';
+  import IconUser from '@/assets/icons/IconUser.vue'
   import IconMail from '@/assets/icons/IconMail.vue'
   import IconLock from '@/assets/icons/IconLock.vue'
-  import IconGoogle from '@/assets/icons/IconGoogle.vue'
-  import { useRouter } from 'vue-router';
   import axios from 'axios';
+  import { useRouter } from 'vue-router';
 
   const router = useRouter();
 
   const formData = {
+    username: '',
     email: '',
     password: '',
+    repeatPassword: ''
   };
 
-  // Wczytywanie zapamiętanych danych logowania
-  const rememberMe = ref(false);
-
-  const rememberedEmail = localStorage.getItem('rememberedEmail');
-  const rememberedPassword = localStorage.getItem('rememberedPassword');
-
-  if (rememberedEmail && rememberedPassword) {
-    formData.email = rememberedEmail;
-    formData.password = rememberedPassword;
-    rememberMe.value = true;
-  }
-
   // Komunikat błędu logowania
-  let loginError = ref(false);
+  let registerError = ref(false);
 
-  // System logowania
-  const login = async () => {
+  // System rejestracji
+  const register = async () => {
     try {
-      const response = await axios.post('/login', formData);
+      const response = await axios.post('/register', formData);
       const { token, userRole } = response.data;
-
-      if (rememberMe.value) {
-        localStorage.setItem('rememberedEmail', formData.email);
-        localStorage.setItem('rememberedPassword', formData.password);
-      } else {
-        localStorage.removeItem('rememberedEmail');
-        localStorage.removeItem('rememberedPassword');
-      }
 
       localStorage.setItem('token', token);
       localStorage.setItem('userRole', userRole);
@@ -93,7 +74,7 @@
 
       router.push('/Pulpit');
     } catch (error) {
-      loginError.value = true;
+      registerError.value = true;
     }
   };
 </script>
@@ -118,8 +99,8 @@
     }
   }
 
-  /* login panel */
-  .loginPanel {
+  /* register panel */
+  .registerPanel {
     height: max-content;
     width: 350px;
     display: flex;
@@ -130,7 +111,7 @@
   }
 
   @media only screen and (max-width: 384px) {
-    .loginPanel {
+    .registerPanel {
       width: 95%;
     }
   }
@@ -216,7 +197,7 @@
     background-color: var(--color-background1);
   }
 
-  .loginError {
+  .registerError {
     height: 47px;
     width: 100%;
     display: flex;
@@ -230,40 +211,7 @@
     color: red;
   }
 
-  .otherOptions {
-    width: 100%;
-    margin-top: -22px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .rememberMe {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 82%;
-    cursor: pointer;
-  }
-
-  .rememberMe input[type="checkbox"] {
-    height: 16px;
-    width: 16px;
-    cursor: pointer;
-  }
-
-  .forgetPass {
-    font-size: 82%;
-    text-decoration: none;
-    color: var(--color-main);
-  }
-
-  .forgetPass:hover {
-    cursor: pointer;
-    transform: scale(1.02);
-  }
-
-  .btn-login {
+  .btn-register {
     height: 47px;
     width: 100%;
     font-size: 90%;
@@ -275,30 +223,10 @@
     color: #FFFFFF;
   }
 
-  .btn-loginGoogle {
-    height: 47px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 11px;
-    font-size: 90%;
-    border: 1px solid #DADCE0;
-    outline: none;
-    border-radius: 4px;
-    background: #00000000;
-    color: var(--color-contrast);
-  }
-
-  .btn-login:hover, .btn-loginGoogle:hover {
+  .btn-register:hover {
     cursor: pointer;
     letter-spacing: 1px;
     transform: scale(1.02);
-  }
-
-  .IconGoogle {
-    height: 57%;
-    width: max-content;
   }
 
   /* footer */

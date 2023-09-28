@@ -5,15 +5,15 @@ const { secretKey } = require('../config/jwt');
 const { isValidEmail } = require('../helpers/emailValidation');
 
 exports.login = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    if (!isValidEmail(username) || password.length < 6) {
+    if (!isValidEmail(email) || password.length < 6) {
       res.status(400).json({ message: 'Nieprawidłowe dane logowania' });
       return;
     }
 
-    const [userRow] = await db.query('SELECT * FROM users WHERE email = ?', [username]);
+    const [userRow] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
     if (!userRow) {
       res.status(401).json({ message: 'Nieprawidłowe dane logowania' });
       return;

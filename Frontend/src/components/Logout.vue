@@ -20,6 +20,7 @@
 
       if (response.status === 200) {
         localStorage.removeItem('token');
+        localStorage.removeItem('userRole');
         delete axios.defaults.headers.common['Authorization'];
         router.push('/');
       }
